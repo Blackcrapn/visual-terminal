@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Визуальный терминал</title>
+    <style>
+        body { font-family: monospace; background-color: black; color: white; }
+        #terminal { padding: 20px; border: 1px solid green; height: 400px; overflow-y: scroll; }
+        input { width: 100%; background: black; color: white; border: none; outline: none; }
+    </style>
+</head>
+<body>
+    <div id="terminal"></div>
+    <input id="commandInput" type="text" placeholder="Введите команду..." />
+    <script src="script.js"></script>
+    <script>
+        const terminal = document.getElementById('terminal');
+        const commandInput = document.getElementById('commandInput');
+
+        commandInput.addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                const command = commandInput.value;
+                terminal.innerHTML += `<div>$ ${command}</div>`;
+                const output = executeCommand(command);
+                terminal.innerHTML += `<div>${output}</div>`;
+                commandInput.value = '';
+            }
+        });
+    </script>
+</body>
+</html>
